@@ -28,27 +28,6 @@ if [ $load_multi30k_task1 -eq 1 ]; then
 
 fi
 
-# Load multi30k task1 dataset with BPE
-load_multi30k_task1_bpe=0
-if [ $load_multi30k_task1_bpe -eq 1 ]; then
-    multi30k_root=$data_root/multi30k/data/task1
-    image_root=$data_root/Flickr30k/flickr30k_images
-    image_list=$multi30k_root/image_splits/train_images.txt
-    output_dir=`pwd`/expts/data/multi30k.task1.bpe
-
-    mkdir -p $output_dir
-
-    for prefix in train val test_2016_flickr; do
-        python -u scps/load_multi30k_data_with_bpe.py --image_list $multi30k_root/image_splits/${prefix}.txt \
-                                             --tokenizer $output_dir/train.tokenizer.pkl \
-                                             --codes $output_dir/train.codes.pkl \
-                                             --en_trans $multi30k_root/tok/${prefix}.lc.norm.tok.en \
-                                             --de_trans $multi30k_root/tok/${prefix}.lc.norm.tok.de \
-                                             --image_dir $image_root --output_prefix $output_dir/${prefix}
-    done
-
-fi
-
 
 # Run object detection and extract features for each object
 faster_rcnn_feat=0
