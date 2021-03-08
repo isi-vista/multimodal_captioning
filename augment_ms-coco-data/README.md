@@ -2,7 +2,7 @@ Instructions to augment MS-COCO dataset
 ============
 
 
-In this module, we load the transcriptions of MS-COCO dataset and translate the English captions to German.
+In this module, we load the transcriptions of MS-COCO dataset and translate the English captions to German. Furthermore, we process the transcriptions of MS-COCO and Multi30k dataset with BPE.
 
 Requirements
 =============
