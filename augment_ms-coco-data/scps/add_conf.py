@@ -7,11 +7,13 @@ import multiprocessing as mp
 from evaluation import PTBTokenizer, Bleu
 import copy
 
+
 def compute_score(gen, gts):
-    #score_gts = PTBTokenizer.tokenize(gts)
-    #score_gen = PTBTokenizer.tokenize(gen)
+    # score_gts = PTBTokenizer.tokenize(gts)
+    # score_gen = PTBTokenizer.tokenize(gen)
     bleu_scores, _ = Bleu().compute_score(gts, gen)
     return bleu_scores[3]
+
 
 def main(argv=None):
     if argv is None:
@@ -20,17 +22,17 @@ def main(argv=None):
     parser = argparse.ArgumentParser(
         description="Add confidence for each ground truth for MS-COCO data."
     )
-    parser.add_argument("--input-trans-file",  dest="trans_file")
+    parser.add_argument("--input-trans-file", dest="trans_file")
     parser.add_argument("--start-index", type=int, dest="start")
     parser.add_argument("--end-index", type=int, dest="end")
-    parser.add_argument("--output-dir", dest="output_dir")
+    parser.add_argument("--output-file", dest="output_file")
     args = parser.parse_args()
 
     trans_data = {}
     with open(args.trans_file, "rb") as fh:
         data = pickle.load(fh)
 
-        for item in data[0]: # (image_name, eng_trans, de_trans, score)
+        for item in data[0]:  # (image_name, eng_trans, de_trans, score)
             if item[0] in trans_data:
                 trans_data[item[0]].append(item[1])
             else:
@@ -41,7 +43,9 @@ def main(argv=None):
     trans_keys.sort()
     for img in tqdm(trans_keys):
         params = []
-        sentences = [copy.deepcopy(trans_data[img]) for _ in range(len(trans_data[img]))]
+        sentences = [
+            copy.deepcopy(trans_data[img]) for _ in range(len(trans_data[img]))
+        ]
         for i, s in enumerate(sentences):
             gts, gen = {}, {}
             g = s.pop(i)
@@ -54,7 +58,7 @@ def main(argv=None):
 
         trans_scores[img] = scores
 
-    with open(join(args.output_dir, "test.dict.pkl"), "wb") as fh:
+    with open(args.output_file, "wb") as fh:
         pickle.dump(trans_scores, fh, protocol=pickle.HIGHEST_PROTOCOL)
 
 

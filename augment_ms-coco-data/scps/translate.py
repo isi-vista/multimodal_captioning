@@ -88,7 +88,7 @@ def trans_tokenization(all_trans):
     tokenizer = tf.keras.preprocessing.text.Tokenizer(
         num_words=9000, oov_token="<unk>", filters='!"#$%&()*+.,-/:;=?[\]^_`{|}~ '
     )
-    tokenizer.fit_on_texts(add_stopwords(en_captions+de_captions))
+    tokenizer.fit_on_texts(add_stopwords(en_captions + de_captions))
     tokenizer.word_index["<pad>"] = 0
     tokenizer.index_word[0] = "<pad>"
 
@@ -96,7 +96,9 @@ def trans_tokenization(all_trans):
     # Pad each vector to the max_length of the captions
     # If you do not provide a max_length value, pad_sequences calculates it automatically
     en_seqs = tokenizer.texts_to_sequences(add_stopwords(en_captions))
-    en_seqs = tf.keras.preprocessing.sequence.pad_sequences(en_seqs, padding="post", maxlen=128)
+    en_seqs = tf.keras.preprocessing.sequence.pad_sequences(
+        en_seqs, padding="post", maxlen=128
+    )
     de_seqs = tokenizer.texts_to_sequences(add_stopwords(de_captions))
     de_seqs = tf.keras.preprocessing.sequence.pad_sequences(de_seqs, padding="post")
     trn_seq = list(zip(images, en_seqs, de_seqs, scores))
@@ -104,7 +106,9 @@ def trans_tokenization(all_trans):
     # create the tokenized vetors for val set
     images, en_captions, de_captions, scores = map(list, zip(*val_captions))
     en_seqs = tokenizer.texts_to_sequences(add_stopwords(en_captions))
-    en_seqs = tf.keras.preprocessing.sequence.pad_sequences(en_seqs, padding="post", maxlen=128)
+    en_seqs = tf.keras.preprocessing.sequence.pad_sequences(
+        en_seqs, padding="post", maxlen=128
+    )
     de_seqs = tokenizer.texts_to_sequences(add_stopwords(de_captions))
     de_seqs = tf.keras.preprocessing.sequence.pad_sequences(de_seqs, padding="post")
     val_seq = list(zip(images, en_seqs, de_seqs, scores))
@@ -112,7 +116,9 @@ def trans_tokenization(all_trans):
     # create the tokenized vetors for test set
     images, en_captions, de_captions, scores = map(list, zip(*tst_captions))
     en_seqs = tokenizer.texts_to_sequences(add_stopwords(en_captions))
-    en_seqs = tf.keras.preprocessing.sequence.pad_sequences(en_seqs, padding="post", maxlen=128)
+    en_seqs = tf.keras.preprocessing.sequence.pad_sequences(
+        en_seqs, padding="post", maxlen=128
+    )
     de_seqs = tokenizer.texts_to_sequences(add_stopwords(de_captions))
     de_seqs = tf.keras.preprocessing.sequence.pad_sequences(de_seqs, padding="post")
     tst_seq = list(zip(images, en_seqs, de_seqs, scores))
@@ -163,16 +169,6 @@ def main(argv=None):
 
     multi_raw_trans = en2de(args.fairseq_model_dir, en_raw_trans)
 
-    """
-    with open("/nas/home/xpeng/projects/image_captioning/run.35/expts/data/ms-coco-bpe/train.trans.pkl", "rb") as fh:
-        f1 = pickle.load(fh)
-    with open("/nas/home/xpeng/projects/image_captioning/run.35/expts/data/ms-coco-bpe/val.trans.pkl", "rb") as fh:
-        f2 = pickle.load(fh)
-    with open("/nas/home/xpeng/projects/image_captioning/run.35/expts/data/ms-coco-bpe/test.trans.pkl", "rb") as fh:
-        f3 = pickle.load(fh)
-    multi_raw_trans = [f1[0], f2[0], f3[0]]
-    """
-
     bpe_codes, bpe_trans = trans_bpe(multi_raw_trans)
 
     tokenizer, seqs = trans_tokenization(bpe_trans)
@@ -186,7 +182,7 @@ def main(argv=None):
 
     prefix = ["train", "val", "test"]
     for p, f1, f2, f3 in zip(prefix, multi_raw_trans, bpe_trans, seqs):
-        with open(join(args.output_dir, p+".trans.pkl"), "wb") as fh:
+        with open(join(args.output_dir, p + ".trans.pkl"), "wb") as fh:
             pickle.dump([f1, f2, f3], fh, protocol=pickle.HIGHEST_PROTOCOL)
 
     files = ["train.image.list.pkl", "val.image.list.pkl", "test.image.list.pkl"]

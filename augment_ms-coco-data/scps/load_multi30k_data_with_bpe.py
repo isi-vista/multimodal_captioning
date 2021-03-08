@@ -35,7 +35,9 @@ def tokenization(tokenizer, en_trans, de_trans, num_words=30000):
     # Pad each vector to the max_length of the captions
     # If you do not provide a max_length value, pad_sequences calculates it automatically
     en_seqs = tokenizer.texts_to_sequences(add_stopwords(en_captions))
-    en_seqs = tf.keras.preprocessing.sequence.pad_sequences(en_seqs, padding="post", maxlen=128)
+    en_seqs = tf.keras.preprocessing.sequence.pad_sequences(
+        en_seqs, padding="post", maxlen=128
+    )
     en_seqs = list(zip(en_images, en_seqs))
 
     de_seqs = tokenizer.texts_to_sequences(add_stopwords(de_captions))
