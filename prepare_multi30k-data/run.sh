@@ -99,7 +99,7 @@ if [ $inceptionv3_class -eq 1 ]; then
 
     for prefix in train val test_2016_flickr; do
         python -u scps/inceptionv3_classification.py --predict expts/data/multi30k.task1/${prefix}.image.list.pkl \
-                                                     --tokenizer ../run.19/expts/data/ms-coco/tokenizer.pkl \
+                                                     --tokenizer ../prepare_ms-coco-data/expts/data/ms-coco/tokenizer.pkl \
                                                      --output-filename ${prefix}_inceptionv3_classes.pkl \
                                                      --output-dir $output_dir
     done
