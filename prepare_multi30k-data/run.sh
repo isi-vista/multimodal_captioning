@@ -57,20 +57,6 @@ fi
 
 
 # Image classification
-inceptionv3_feat=0
-if [ $inceptionv3_feat -eq 1 ]; then
-    output_dir=`pwd`/expts/feats/inceptionv3
-    mkdir -p $output_dir
-
-    for prefix in train val test_2016_flickr; do
-        python -u scps/inceptionv3_featex.py --predict expts/data/multi30k.task1/${prefix}.image.list.pkl \
-                                             --output-filename ${prefix}_inceptionv3_featex.pkl \
-                                             --output-dir $output_dir
-    done 
-fi
-
-
-# Image classification
 inceptionv3_class=0
 if [ $inceptionv3_class -eq 1 ]; then
     output_dir=`pwd`/expts/classes/inceptionv3

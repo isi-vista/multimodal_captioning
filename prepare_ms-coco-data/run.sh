@@ -21,7 +21,6 @@ if [ $load_coco -eq 1 ]; then
 fi
 
 
-
 # Run Faster-RCNN objects detection and feature extraction for MS-COCO dataset
 faster_rcnn_feat=0
 if [ $faster_rcnn_feat -eq 1 ]; then
@@ -45,20 +44,6 @@ if [ $faster_rcnn_feat -eq 1 ]; then
                                                                             PREPROC.TRAIN_SHORT_EDGE_SIZE=[640,800] \
                                                                             TRAIN.LR_SCHEDULE=9x \
                                                                             BACKBONE.FREEZE_AT=0
-    done 
-fi
-
-
-# Run inceptionv3 to extract features for detected objects 
-inceptionv3_feat=0
-if [ $inceptionv3_feat -eq 1 ]; then
-    output_dir=`pwd`/expts/feats/inceptionv3
-    mkdir -p $output_dir
-
-    for prefix in trn val test; do
-        python -u scps/inceptionv3_featex.py --predict expts/data/ms-coco/${prefix}_img_key.pkl \
-                                             --output-filename ${prefix}_inceptionv3_featex.pkl \
-                                             --output-dir $output_dir
     done 
 fi
 
