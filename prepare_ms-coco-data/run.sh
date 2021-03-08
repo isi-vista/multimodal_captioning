@@ -21,16 +21,6 @@ if [ $load_coco -eq 1 ]; then
 fi
 
 
-# Generating BPE captions for MS-COCO dataset
-load_coco_bpe=0
-if [ $load_coco_bpe -eq 1 ]; then
-    annotation_file=$data_root/annotations/dataset_coco.json
-    output_dir=`pwd`/expts/data/ms-coco-bpe
-    mkdir -p $output_dir
-
-    python -u scps/load_coco_data_with_bpe.py --input-annotation-file $annotation_file --input-image-dir $data_root --output-dir $output_dir
-fi
-
 
 # Run Faster-RCNN objects detection and feature extraction for MS-COCO dataset
 faster_rcnn_feat=0
