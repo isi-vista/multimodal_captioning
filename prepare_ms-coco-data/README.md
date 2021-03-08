@@ -9,5 +9,5 @@ Requirements
 * Python3, tensorflow
 * cuda, cudnn
 * Download ms-coco dataset, please refer run.sh
-* Download pretrained model of tensorpack COCO-MaskRCNN-R101FPN9xGNCasAugScratch.npz from http://models.tensorpack.com/FasterRCNN/COCO-MaskRCNN-R101FPN9xGNCasAugScratch.npz to scps/tensorpack/models/
+* Download pretrained model of tensorpack from http://models.tensorpack.com/FasterRCNN/COCO-MaskRCNN-R101FPN9xGNCasAugScratch.npz to scps/tensorpack/models/
 
