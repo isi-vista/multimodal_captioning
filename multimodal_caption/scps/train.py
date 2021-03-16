@@ -65,19 +65,19 @@ def main(argv=None):
     dataloader_coco_train = dataset.COCODataLoader(
         args.caption_files[0], args.feature_files[0], args.class_files[0], args.batch_size
     )
-    dataloader_coco_train = dataset.COCODataLoader(
-        args.caption_files[1], args.feature_files[1], args.batch_size
+    dataloader_coco_val = dataset.COCODataLoader(
+        args.caption_files[1], args.feature_files[1], args.class_files[1], args.batch_size
     )
 
     print("load ms-coco done")
 
     # load train, val, test datasets
-    #dataloader_multi30k_train = dataset.Multi30kDataLoader(
-    #    args.caption_files[3], args.feature_files[3], args.class_files[3], args.batch_size
-    #)
-    #dataloader_multi30k_val = dataset.Multi30kDataLoader(
-    #    args.caption_files[4], args.feature_files[4], args.class_files[4], args.batch_size
-    #)
+    dataloader_multi30k_train = dataset.Multi30kDataLoader(
+        args.caption_files[3], args.feature_files[3], args.class_files[3], args.batch_size
+    )
+    dataloader_multi30k_val = dataset.Multi30kDataLoader(
+        args.caption_files[4], args.feature_files[4], args.class_files[4], args.batch_size
+    )
 
     print("load multi30k done")
 

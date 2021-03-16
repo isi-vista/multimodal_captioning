@@ -9,7 +9,7 @@ source ~/.bashrc
 
 data_root=/nas/multimudal/data/ms-coco
 
-# Load MS-COCO dataset
+# Load image key and tokens from MS-COCO dataset
 load_coco=1
 if [ $load_coco -eq 1 ]; then
     annotation_file=$data_root/annotations/dataset_coco.json

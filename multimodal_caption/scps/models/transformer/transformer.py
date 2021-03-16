@@ -26,7 +26,8 @@ class Transformer(StatefulModel):
         self.eos_idx = eos_idx
         self.padding_idx = padding_idx
 
-        # objects detection visual features
+        # inputs are objects detection visual features
+        # and image classification labels
         self.visual_encoder = encoders.VisualEncoder(
             padding_idx, encoder_layers, d_model, num_heads, dff, rate
         )
@@ -34,7 +35,7 @@ class Transformer(StatefulModel):
         # word embedding
         self.embedding = tf.keras.layers.Embedding(target_vocab_size, d_model)
 
-        # image classification features
+        # inputs are (English) text
         self.text_encoder = encoders.TextEncoder(
             source_vocab_size,
             max_len,
@@ -83,6 +84,7 @@ class Transformer(StatefulModel):
         # word embedding for (English) text encoder
         text_enc_mask, _, _ = self.create_mask(text)
         text_embedding = self.embedding(text)
+
         # text encoding
         text_enc_output, text_enc_mask = self.text_encoder(
             text_embedding, text_enc_mask, training
