@@ -1,5 +1,4 @@
 # multimodal_captioning
-============
 
 Requirements
 =============
