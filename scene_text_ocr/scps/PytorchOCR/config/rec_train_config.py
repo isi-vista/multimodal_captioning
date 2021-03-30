@@ -73,7 +73,7 @@ config.dataset = {
     'train': {
         'dataset': {
             'type': 'RecTextLineDataset',
-            'file': r'/nas/home/xpeng/projects/image_captioning/data/Incidental-Scene-Text-2015/recognition/train.txt',
+            'file': r'/nas/multimudal/data/Incidental-Scene-Text-2015/recognition/train.txt',
             'input_h': 32,
             'mean': 0.5,
             'std': 0.5,
@@ -93,7 +93,7 @@ config.dataset = {
     'eval': {
         'dataset': {
             'type': 'RecTextLineDataset',
-            'file': r'/nas/home/xpeng/projects/image_captioning/data/Incidental-Scene-Text-2015/recognition/test.txt',
+            'file': r'/nas/multimudal/data/Incidental-Scene-Text-2015/recognition/test.txt',
             'input_h': 32,
             'mean': 0.5,
             'std': 0.5,
