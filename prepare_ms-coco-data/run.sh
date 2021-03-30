@@ -29,7 +29,7 @@ if [ $faster_rcnn_feat -eq 1 ]; then
 
     export PYTHONPATH=scps/tensorpack/:${PYTHONPATH}
 
-    for prefix in trn val test; do
+    for prefix in train val test; do
         python -u scps/tensorpack/examples/FasterRCNN/featex.py --load scps/tensorpack/models/COCO-MaskRCNN-R101FPN9xGNCasAugScratch.npz \
                                                                 --predict expts/data/ms-coco/${prefix}_img_key.pkl \
                                                                 --output-filename ${prefix}_cascade_fastrcnn_featex1.pkl \
@@ -54,7 +54,7 @@ if [ $inceptionv3_class -eq 1 ]; then
     output_dir=`pwd`/expts/classes/inceptionv3
     mkdir -p $output_dir
 
-    for prefix in val test trn; do
+    for prefix in val test train; do
         python -u scps/inceptionv3_classification.py --predict expts/data/ms-coco/${prefix}_img_key.pkl \
                                                      --tokenizer expts/data/ms-coco/tokenizer.pkl \
                                                      --output-filename ${prefix}_inceptionv3_classes.pkl \

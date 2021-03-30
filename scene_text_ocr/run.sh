@@ -79,7 +79,7 @@ if [ $process_multi30k -eq 1 ]; then
                                                                --output_file $output_dir/../multi30k.${subset}.ocr.results.fil.pkl
 
         # re-select objects' features, image classification features, and German text
-        python3 -u scps/collect_multi30k_data.py --input_key_file $output_dir/multi30k.${subset}.ocr.results.fil.pkl \
+        python3 -u scps/collect_multi30k_data.py --input_key_file $output_dir/../multi30k.${subset}.ocr.results.fil.pkl \
                                         --input_visual_feat_file `pwd`/../augment_ms-coco-data/expts/feats/multi30k-faster-rcnn/${subset}_cascade_fastrcnn_featex.pkl \
                                         --input_image_class_file `pwd`/../augment_ms-coco-data/expts/classes/multi30k-inceptionv3-classes/${subset}_inceptionv3_classes.pkl \
                                         --input_text_file `pwd`/../augment_ms-coco-data/expts/data/multi30k-bpe/${subset}.trans.pkl \
